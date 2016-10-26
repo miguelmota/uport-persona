@@ -52,8 +52,7 @@
   "dependencies": {
     "bigi": "^1.4.1",
     "bitcoinjs-lib": "^2.2.0",
-    "blockstack-profiles": "^0.3.5",
-    "uport-registry": "^1.2.5"
+    "blockstack-profiles": "^0.3.5"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -61,7 +60,6 @@
     "babel-register": "^6.9.0",
   	"standard": "^8.0.0",
     "chai": "^3.5.0",
-    "ether-pudding": "^2.0.0",
     "ethereumjs-testrpc": "^2.2.4",
     "ipfsd-ctl": "^0.14.0",
     "jsdoc": "^3.4.0",
