@@ -33,10 +33,10 @@ const registry = new Registry( {
 
 ### Returning profile information for an ethereum address
 
-Simply call the `registry.getProfile(...)` method and you will be returned a promise containing the public uport profile.
+Simply call the `registry.getPublicProfile(...)` method and you will be returned a promise containing the public uport profile.
 
 ```js
-registry.getProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((profile) => {
+registry.getPublicProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((profile) => {
     console.log(profile)
 })
 ```
@@ -57,5 +57,4 @@ $ npm test
 ```
 ## Documentation
 {{#class name="Registry"}}{{>docs}}{{/class}}
-{{#class name="Persona"}}{{>docs}}{{/class}}
 {{#class name="PublicPersona"}}{{>docs}}{{/class}}

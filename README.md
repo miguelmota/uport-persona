@@ -33,10 +33,10 @@ const registry = new Registry( {
 
 ### Returning profile information for an ethereum address
 
-Simply call the `registry.getProfile(...)` method and you will be returned a promise containing the public uport profile.
+Simply call the `registry.getPublicProfile(...)` method and you will be returned a promise containing the public uport profile.
 
 ```js
-registry.getProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((profile) => {
+registry.getPublicProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((profile) => {
     console.log(profile)
 })
 ```
@@ -65,7 +65,7 @@ Class representing a uPort Registry.
 
 * [Registry](#Registry)
     * [.constructor(settings)](#Registry+constructor) ⇒ <code>Object</code>
-    * [.getProfile()](#Registry+getProfile) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
+    * [.getPublicProfile()](#Registry+getPublicProfile) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
     * [.getPersona()](#Registry+getPersona) ⇒ <code>Promise.&lt;PublicPersona, Error&gt;</code>
     * [.getPersonas()](#Registry+getPersonas) ⇒ <code>Promise.&lt;PublicPersona, Error&gt;</code>
 
@@ -82,9 +82,9 @@ Class constructor.
 | --- | --- | --- |
 | settings | <code>Object</code> | optional settings containing web3, ipfs and registry settings |
 
-<a name="Registry+getProfile"></a>
+<a name="Registry+getPublicProfile"></a>
 
-### registry.getProfile() ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
+### registry.getPublicProfile() ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
 Gets the public profile JSON object stored in IPFS for the given address.
 
 **Kind**: instance method of <code>[Registry](#Registry)</code>  
@@ -104,34 +104,17 @@ Gets the data stored in IPFS for an array of given addresses and creates an arra
 **Kind**: instance method of <code>[Registry](#Registry)</code>  
 **Returns**: <code>Promise.&lt;PublicPersona, Error&gt;</code> - A promise that returns an array of new PublicPersona objects.  
 
-<a name="Persona"></a>
-
-## Persona
-Class representing a Persona, extends PersonaInterface
-
-**Kind**: global class  
-<a name="Persona+constructor"></a>
-
-### persona.constructor(claims, publicProfile, address) ⇒ <code>Object</code>
-Class constructor.
- Creates a new Persona object.
-
-**Kind**: instance method of <code>[Persona](#Persona)</code>  
-**Returns**: <code>Object</code> - self  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| claims | <code>Array.&lt;Object&gt;</code> | The identity address |
-| publicProfile | <code>[PublicPersona](#PublicPersona)</code> | TODO: example from json |
-| address | <code>String</code> | The identity address |
-
-
 <a name="PublicPersona"></a>
 
 ## PublicPersona
 Class representing PublicPersona, extends PersonaInterface
 
 **Kind**: global class  
+
+* [PublicPersona](#PublicPersona)
+    * [.constructor(publicProfile, address)](#PublicPersona+constructor) ⇒ <code>Object</code>
+    * [.profile()](#PublicPersona+profile) ⇒ <code>Object</code>
+
 <a name="PublicPersona+constructor"></a>
 
 ### publicPersona.constructor(publicProfile, address) ⇒ <code>Object</code>
@@ -146,4 +129,10 @@ Class constructor.
 | publicProfile | <code>JSON</code> | Public Profile on IPFS |
 | address | <code>String</code> | The identity address |
 
+<a name="PublicPersona+profile"></a>
+
+### publicPersona.profile() ⇒ <code>Object</code>
+A getter which returns a simple Profile Object
+
+**Kind**: instance method of <code>[PublicPersona](#PublicPersona)</code>  
 

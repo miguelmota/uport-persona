@@ -463,8 +463,28 @@ var PublicPersona = function (_PersonaInterface) {
     // TODO don't neccesarily force the use of passing a new profile object below.
     var ISP = publicProfileToISProfile(publicProfile, new ISProfile(), address);
     var TSP = publicProfileToTSProfile(publicProfile, new TSProfile(address), address);
-    return _possibleConstructorReturn(this, (PublicPersona.__proto__ || Object.getPrototypeOf(PublicPersona)).call(this, TSP, ISP, address));
+
+    var _this3 = _possibleConstructorReturn(this, (PublicPersona.__proto__ || Object.getPrototypeOf(PublicPersona)).call(this, TSP, ISP, address));
+
+    _this3.profileData = publicProfile;
+    return _this3;
   }
+
+  /**
+   *  A getter which returns a simple Profile Object
+   *
+   *  @memberof PublicPersona#
+   *  @method          profile
+   *  @return          {Object}
+   */
+
+
+  _createClass(PublicPersona, [{
+    key: 'profile',
+    get: function get() {
+      return this.profileData;
+    }
+  }]);
 
   return PublicPersona;
 }(PersonaInterface);

@@ -72,14 +72,14 @@ var Registry = function () {
    *  Gets the public profile JSON object stored in IPFS for the given address.
    *
    *  @memberof Registry#
-   *  @method           getProfile
+   *  @method           getPublicProfile
    *  @return           {Promise<JSON, Error>}            A promise that returns the JSON object stored in IPFS for the given address
    */
 
 
   _createClass(Registry, [{
-    key: 'getProfile',
-    value: function getProfile(address) {
+    key: 'getPublicProfile',
+    value: function getPublicProfile(address) {
       return this.uportRegistry.getAttributes(this.registryAddress, address);
     }
 
@@ -97,7 +97,7 @@ var Registry = function () {
       var _this = this;
 
       return new Promise(function (resolve, reject) {
-        _this.getProfile(address).then(function (profile) {
+        _this.getPublicProfile(address).then(function (profile) {
           return resolve(new _persona.PublicPersona(profile, address));
         });
       });
