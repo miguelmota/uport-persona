@@ -2,13 +2,7 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _uportRegistry = require('uport-registry');
-
-var _uportRegistry2 = _interopRequireDefault(_uportRegistry);
-
 var _jsontokens = require('jsontokens');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -16,112 +10,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// consensysnet registry address, default for now
-var DEFAULT_REGISTRY_ADDRESS = '0xb9C1598e24650437a3055F7f66AC1820c419a679';
-
-// TODO return schema.org specific key values with prefix @ ? or filter them?
-
-// TODO wording: uportID or address
-// TODO profile or persona? wording for the represenation of identity/profile in here
-// TODO not sure if or how address (for a profile) should be passed around or if it should even, maybe optional
-// TODO decide what functionality to expose, and reflect that in the documents
-// TODO don't add type value for attestations
-// TODO when creating two indexed profiles don't do twice the work, for example don't parse tokens twice.
-
-// const personaNetwork = new Persona.Network(ipfs, web3Provider, registryAddress)
-// const personaProfile =  personaNetwork.getProfile(address)  //promise, can return raw data or personaProfile object
-
-
-/** Class representing a uPort Registry. */
-
-var Registry = function () {
-
-  /**
-   *  Class constructor.
-   *  Creates a new Registry object. The registryAddress is an optional argument and if not specified will be at the moment set to the default ropsten network uport-registry.
-   *
-   *  @memberof Registry#
-   *  @method          constructor
-   *  @param           {String}         ipfsProvider                                                        an ipfs provider
-   *  @param           {String}         web3Provider                                                        web3 provider
-   *  @param           {String}         [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
-   *  @return          {Object}         self
-   */
-  function Registry(ipfs, web3Provider, registryAddress) {
-    _classCallCheck(this, Registry);
-
-    this.uportRegistry = _uportRegistry2.default;
-
-    if (ipfs && web3Provider) {
-      this.uportRegistry.setIpfsProvider(ipfs);
-      this.uportRegistry.setWeb3Provider(web3Provider);
-    }
-
-    this.registryAddress = registryAddress || DEFAULT_REGISTRY_ADDRESS;
-  }
-
-  /**
-   *  Gets the public profile JSON object stored in IPFS for the given address.
-   *
-   *  @memberof Registry#
-   *  @method           getData
-   *  @return           {Promise<JSON>, Error>}            A promise that returns the JSON object stored in IPFS for the given address
-   */
-
-
-  _createClass(Registry, [{
-    key: 'getData',
-    value: function getData(address) {
-      return this.uportRegistry.getAttributes(this.registryAddress, address);
-    }
-
-    /**
-     *  Gets the the data stored in IPFS for the given object and creates a PublicPersona object.
-     *
-     *  @memberof Registry#
-     *  @method           getProfile
-     *  @return           {Promise<PublicPersona>, Error>}            A promise that returns a new PublicPersona object.
-     */
-
-  }, {
-    key: 'getProfile',
-    value: function getProfile(address) {
-      var _this = this;
-
-      return new Promise(function (resolve, reject) {
-        _this.getData(address).then(function (profile) {
-          return resolve(new PublicPersona(profile, address));
-        });
-      });
-    }
-
-    /**
-     *  Gets the data stored in IPFS for an array of given addresses and creates an array of PublicPersona objects.
-     *
-     *  @memberof Registry#
-     *  @method           getProfile
-     *  @return           {Promise<Array[PublicPersona]>, Error>}            A promise that returns an array of new PublicPersona objects.
-     */
-
-  }, {
-    key: 'getProfiles',
-    value: function getProfiles(addresses) {
-      return Promise.all(addresses.map(function (address) {
-        return getProfile(address);
-      }));
-    }
-  }]);
-
-  return Registry;
-}();
-
 // May reduce this code with an abstract class
 
 /** Class representing a (issuer, value) mapping. */
 // TODO return object by im.map or by wrapper ex. im.object
 // Sub map of TSProfile, TODO explain where this is used, this won't necessarily be a public class.
-
-
 var IssuerMap = function () {
 
   /**
@@ -148,7 +41,7 @@ var IssuerMap = function () {
    *  @memberof IssuerMap#
    *  @method          issuer
    *  @param           {String}                      issuer                          The address of the issuer
-   *  @return          {Array[Object/String]}                                        An array of Strings and/or Objects
+   *  @return          {Object[]|String[]}                                        An array of Strings and/or Objects
    */
 
 
@@ -164,8 +57,8 @@ var IssuerMap = function () {
      *  @memberof IssuerMap#
      *  @method          add
      *  @param           {String}                       issuer                          The address of the issuer
-     *  @param           {String/Object}                val                          The value of claim, may be an object or string
-     *  @return          {Array[Object/String]}                                         An array of Strings and/or Objects
+     *  @param           {String|Object}                val                          The value of claim, may be an object or string
+     *  @return          {Object[]|String[]}                                         An array of Strings and/or Objects
      */
 
   }, {
@@ -185,16 +78,16 @@ var IssuerMap = function () {
      *
      *  @memberof IssuerMap#
      *  @method          all
-     *  @return          {Array[Object]}                                         An array of objects [{issuer:'issuer', value: 'value'}, ....]
+     *  @return          {Object[]}                                         An array of objects [{issuer:'issuer', value: 'value'}, ....]
      */
 
   }, {
     key: 'all',
     get: function get() {
-      var _this2 = this;
+      var _this = this;
 
       return Object.keys(this.map).map(function (key) {
-        return _this2.map[key].map(function (val) {
+        return _this.map[key].map(function (val) {
           return { issuer: key, value: val };
         });
       }).reduce(function (acc, val) {
@@ -207,7 +100,7 @@ var IssuerMap = function () {
      *
      *  @memberof IssuerMap#
      *  @method          all
-     *  @return          {Array[Object]}                                         An array of objects [{key:'key', value: 'value'}, ....]
+     *  @return          {Object[]}                                         An array of objects [{key:'key', value: 'value'}, ....]
      */
     //  TODO if address optional, must have error here
 
@@ -222,7 +115,7 @@ var IssuerMap = function () {
      *
      *  @memberof IssuerMap#
      *  @method          issuers
-     *  @return          {Array[String]}                                         An array of Issuers<String>
+     *  @return          {String[]}                                         An array of Issuers<String>
      */
 
   }, {
@@ -260,7 +153,7 @@ var TypeMap = function () {
    *  @memberof TypeMap#
    *  @method          type
    *  @param           {String}                      type                          The type string
-   *  @return          {Array[Object/String]}                                        An array of Strings and/or Objects
+   *  @return          {Object[]|String[]}                                        An array of Strings and/or Objects
    */
 
 
@@ -276,8 +169,8 @@ var TypeMap = function () {
      *  @memberof TypeMap#
      *  @method          add
      *  @param           {String}                       type                      A claim type as a string.
-     *  @param           {String/Object}                val                       The value of claim, may be an object or string
-     *  @return          {Array[Object/String]}                                   An array of Strings and/or Objects
+     *  @param           {String|Object}                val                       The value of claim, may be an object or string
+     *  @return          {Object[]|String[]}                                   An array of Strings and/or Objects
      */
 
   }, {
@@ -298,16 +191,16 @@ var TypeMap = function () {
      *
      *  @memberof IssuerMap#
      *  @method          all
-     *  @return          {Array[Object]}                                         An array of objects [{type:'type', value: 'value'}, ....]
+     *  @return          {Object[]}                                         An array of objects [{type:'type', value: 'value'}, ....]
      */
 
   }, {
     key: 'all',
     get: function get() {
-      var _this3 = this;
+      var _this2 = this;
 
       return Object.keys(this.map).map(function (key) {
-        return _this3.map[key].map(function (val) {
+        return _this2.map[key].map(function (val) {
           return { type: key, value: val };
         });
       }).reduce(function (acc, val) {
@@ -320,7 +213,7 @@ var TypeMap = function () {
      *
      *  @memberof IssuerMap#
      *  @method          types
-     *  @return          {Array[String]}                                         An array of types<String>
+     *  @return          {String[]}                                         An array of types<String>
      */
 
   }, {
@@ -363,9 +256,8 @@ var ISProfile = function () {
    *  @memberof ISProfile#
    *  @method          add
    *  @param           {String}                       issuer                    A claim issuer
-   *  @param           {String/Object}                type                      A claim type
-   *  @param           {String/Object}                val                       A claim value
-   *  @return          {<None>}
+   *  @param           {String|Object}                type                      A claim type
+   *  @param           {String|Object}                val                       A claim value
    */
 
 
@@ -410,9 +302,8 @@ var TSProfile = function () {
    *  @memberof TSProfile#
    *  @method          add
    *  @param           {String}                       issuer                    A claim issuer
-   *  @param           {String/Object}                type                      A claim type
-   *  @param           {String/Object}                val                       A claim value
-   *  @return          {<None>}
+   *  @param           {String|Object}                type                      A claim type
+   *  @param           {String|Object}                val                       A claim value
    */
 
 
@@ -590,7 +481,7 @@ var Persona = function (_PersonaInterface2) {
    *
    *  @memberof Persona#
    *  @method          constructor
-   *  @param           {Array[JSON]}         claims                             The identity address
+   *  @param           {Object[]}         claims                             The identity address
    *  @param           {PublicPersona}       publicProfile                      TODO: example from json
    *  @param           {String}              address                            The identity address
    *  @return          {Object}              self
@@ -756,4 +647,4 @@ var decodeClaim = function decodeClaim(token) {
 
 // TODO Claim Utilities
 
-module.exports = { Registry: Registry, PublicPersona: PublicPersona, Persona: Persona };
+module.exports = { PublicPersona: PublicPersona, Persona: Persona };

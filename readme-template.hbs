@@ -16,19 +16,36 @@ import { Registry } from 'uport-persona';
 
 To use the `Registry` instantiate it like this:
 
-TODO improve Registy experience
+```js
+const registry = new Registry()
+```
+
+You can pass in various options in a settings object:
 
 ```js
-const registry = new Registry(ipfsProvider, web3Prov)
+import Web3 from 'web3'
+const registry = new Registry( {
+    web3: new Web3.providers.HttpProvider("http://localhost:8545"),
+    ipfs: {host: 'localhost', port: 5001, protocol: 'http'}, // Pass in a configuration object or a ipfs-api compliant provider
+    registryAddress: '0x...'
+})
 ```
 
 ### Returning profile information for an ethereum address
 
-Simply call the `registry.getProfile(...)` method and you will be returned a promise containing the persona object.
-
+Simply call the `registry.getProfile(...)` method and you will be returned a promise containing the public uport profile.
 
 ```js
-registry.getProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((persona) => {
+registry.getProfile('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((profile) => {
+    console.log(profile)
+})
+```
+
+To receive a more advanced Persona object that will let you query the profile based on who issued the claims use
+ `registry.getPersona(...)` method and you will be returned a promise containing the Persona object.
+
+```js
+registry.getPersona('0x06b4915f423117e3c71d671edcbbabd2a0222236').then((persona) => {
     console.log(persona)
 })
 ```
@@ -39,6 +56,6 @@ Simply run
 $ npm test
 ```
 ## Documentation
+{{#class name="Registry"}}{{>docs}}{{/class}}
 {{#class name="Persona"}}{{>docs}}{{/class}}
-
-{{#class name="MutablePersona"}}{{>docs}}{{/class}}
+{{#class name="PublicPersona"}}{{>docs}}{{/class}}
