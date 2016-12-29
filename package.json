@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "jsontokens": "^0.6.5",
-    "uport-registry": "ConsenSys/uport-registry#62a29989d7ff7318264ab63622a5b01c296dcc18"
+    "uport-registry": "1.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
