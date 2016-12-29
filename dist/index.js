@@ -3,17 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MutablePersona = exports.Persona = undefined;
+exports.PublicPersona = exports.Persona = exports.Registry = undefined;
 
 var _persona = require('./persona');
 
-var _persona2 = _interopRequireDefault(_persona);
+var _registry = require('./registry');
 
-var _mutablePersona = require('./mutablePersona');
-
-var _mutablePersona2 = _interopRequireDefault(_mutablePersona);
+var _registry2 = _interopRequireDefault(_registry);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Persona = _persona2.default;
-exports.MutablePersona = _mutablePersona2.default;
+exports.Registry = _registry2.default;
+exports.Persona = _persona.Persona;
+exports.PublicPersona = _persona.PublicPersona;
