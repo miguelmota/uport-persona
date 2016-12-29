@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 2.0.1 - 2016-12-29
+
+
+## Version 2.0.0 - 2016-12-29
+
+Breaking Change
+
+Changes the underlying structure and api of Persona.
+
 ## Version 1.2.3 - 2016-09-15
 
 * Include dist folder
