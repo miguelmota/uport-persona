@@ -56,11 +56,11 @@ var Registry = function () {
     this.uportRegistry = _uportRegistry2.default;
 
     if (settings.ipfs) {
-      this.uportRegistry.setIpfsProvider(ipfs);
+      this.uportRegistry.setIpfsProvider(settings.ipfs);
     }
 
     if (settings.web3) {
-      this.uportRegistry.setWeb3Provider(web3);
+      this.uportRegistry.setWeb3Provider(settings.web3);
     } else {
       this.uportRegistry.setWeb3Provider(new _web2.default.providers.HttpProvider('https://ropsten.infura.io/uport-persona-lib'));
     }
