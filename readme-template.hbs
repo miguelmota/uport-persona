@@ -25,7 +25,7 @@ You can pass in various options in a settings object:
 ```js
 import Web3 from 'web3'
 const registry = new Registry( {
-    web3: new Web3.providers.HttpProvider("http://localhost:8545"),
+    web3prov: new Web3.providers.HttpProvider("http://localhost:8545"),
     ipfs: {host: 'localhost', port: 5001, protocol: 'http'}, // Pass in a configuration object or a ipfs-api compliant provider
     registryAddress: '0x...'
 })

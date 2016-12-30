@@ -43,9 +43,11 @@ var Registry = function () {
   *  Class constructor.
   *  Creates a new Registry object. The registryAddress is an optional argument and if not specified will be at the moment set to the default ropsten network uport-registry.
   *
-  *  @memberof Registry#
+  *  @memberof        Registry#
   *  @method          constructor
-  *  @param           {Object}         settings                                                            optional settings containing web3, ipfs and registry settings
+  *  @param           {Object}         settings.ipfs      Optional custom ipfs provider (defaults to infura)
+  *  @param           {Web3Provider}   settings.web3prov  Optional web3 provider object (defaults to infura ropsten node)
+  *  @param           {String}         settings.registryAddress Optional ethereum address of a uport contract
   *  @return          {Object}         self
   */
   function Registry() {
@@ -53,19 +55,10 @@ var Registry = function () {
 
     _classCallCheck(this, Registry);
 
-    this.uportRegistry = _uportRegistry2.default;
-
-    if (settings.ipfs) {
-      this.uportRegistry.setIpfsProvider(settings.ipfs);
+    if (!settings.web3prov) {
+      settings.web3prov = new _web2.default.providers.HttpProvider('https://ropsten.infura.io/uport-persona-lib');
     }
-
-    if (settings.web3) {
-      this.uportRegistry.setWeb3Provider(settings.web3);
-    } else {
-      this.uportRegistry.setWeb3Provider(new _web2.default.providers.HttpProvider('https://ropsten.infura.io/uport-persona-lib'));
-    }
-
-    this.registryAddress = settings.registryAddress || DEFAULT_REGISTRY_ADDRESS;
+    this.uportRegistry = new _uportRegistry2.default(settings);
   }
 
   /**
@@ -80,7 +73,7 @@ var Registry = function () {
   _createClass(Registry, [{
     key: 'getPublicProfile',
     value: function getPublicProfile(address) {
-      return this.uportRegistry.getAttributes(this.registryAddress, address);
+      return this.uportRegistry.getAttributes(address);
     }
 
     /**
