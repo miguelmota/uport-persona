@@ -25,7 +25,7 @@ You can pass in various options in a settings object:
 ```js
 import Web3 from 'web3'
 const registry = new Registry( {
-    web3: new Web3.providers.HttpProvider("http://localhost:8545"),
+    web3prov: new Web3.providers.HttpProvider("http://localhost:8545"),
     ipfs: {host: 'localhost', port: 5001, protocol: 'http'}, // Pass in a configuration object or a ipfs-api compliant provider
     registryAddress: '0x...'
 })
@@ -64,14 +64,14 @@ Class representing a uPort Registry.
 **Kind**: global class  
 
 * [Registry](#Registry)
-    * [.constructor(settings)](#Registry+constructor) ⇒ <code>Object</code>
+    * [.constructor()](#Registry+constructor) ⇒ <code>Object</code>
     * [.getPublicProfile()](#Registry+getPublicProfile) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
     * [.getPersona()](#Registry+getPersona) ⇒ <code>Promise.&lt;PublicPersona, Error&gt;</code>
     * [.getPersonas()](#Registry+getPersonas) ⇒ <code>Promise.&lt;PublicPersona, Error&gt;</code>
 
 <a name="Registry+constructor"></a>
 
-### registry.constructor(settings) ⇒ <code>Object</code>
+### registry.constructor() ⇒ <code>Object</code>
 Class constructor.
  Creates a new Registry object. The registryAddress is an optional argument and if not specified will be at the moment set to the default ropsten network uport-registry.
 
@@ -80,7 +80,9 @@ Class constructor.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| settings | <code>Object</code> | optional settings containing web3, ipfs and registry settings |
+| settings.ipfs | <code>Object</code> | Optional custom ipfs provider (defaults to infura) |
+| settings.web3prov | <code>Web3Provider</code> | Optional web3 provider object (defaults to infura ropsten node) |
+| settings.registryAddress | <code>String</code> | Optional ethereum address of a uport contract |
 
 <a name="Registry+getPublicProfile"></a>
 
