@@ -4669,9 +4669,9 @@ unorm@^1.3.3:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/unorm/-/unorm-1.4.1.tgz#364200d5f13646ca8bcd44490271335614792300"
 
-uport-registry@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/uport-registry/-/uport-registry-2.0.0.tgz#0c0ced3f31722964aa96a8f2da5edf888933d44f"
+uport-registry@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/uport-registry/-/uport-registry-2.0.1.tgz#4068b20551d7b8b36d2f20b664b5bc07715cf2cc"
   dependencies:
     bluebird "*"
     bs58 "^4.0.0"
