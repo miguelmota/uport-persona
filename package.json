@@ -1,6 +1,6 @@
 {
   "name": "uport-persona",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A library for creating, updating and reading attributes and claims on uport personas.",
   "main": "dist/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "jsontokens": "^0.6.5",
-    "uport-registry": "^2.0.1"
+    "uport-registry": "^2.0.5"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
